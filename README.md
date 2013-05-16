@@ -1,24 +1,21 @@
-# yum-repo-client
+yum-repo-client
 ===============
 
 ## Aim
-'yum-repo-client' is a command line interface for interacting with the yum-repo-server
+_yum-repo-client_ is a command line interface for interacting with the [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server).
 The aim is to provide a command line wrapper for every functionality the yum-repo-server provides so you don't have to fiddle with REST requests.
-This is especially good for automations that can run command line tools because you can modify the yum-repo-server as you wish without breaking your automation (provided you include the modifications in the yum-repo-client).
+This is especially good for automations that can run command line tools because you can modify the [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server) as you wish without breaking your automation (provided you include the modifications in the yum-repo-client).
 
 ## Features
 The yum-repo-client currently supports
 * Remote repository creation and deletion
 * RPM upload and remote deletion
 * Virtual repository creation, linking, redirection and deletion
-* Optional authentication and yum-repo-server host parametrization
+* Optional authentication and [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server) host parametrization
 * RPM propagation
 * Smart bash autocompletion
 
 ## Getting started
-### Obtaining the yum-repo-client
-The yum-repo-client comes bundled with the yum-repo-server.
-Everything you need is located in the project subfolder 'client'.
 ### Building the yum-repo-client
 First of all it is recommended to run the tests:
 <code>
