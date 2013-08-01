@@ -4,6 +4,11 @@ import pycurl
 import string
 import base64
 import urllib
+import html2text
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 
 class RepoException(Exception):
@@ -11,8 +16,10 @@ class RepoException(Exception):
         self.value = value
 
     def __str__(self):
-        return repr(self.value)
+        return str(self.value)
 
+def _render(response):
+    return html2text.html2text(response)
 
 class HttpClient(object):
     USER_AGENT = 'repoclient/1.0'
@@ -65,6 +72,8 @@ class HttpClient(object):
 
     def uploadRpm(self, reponame, rpm_file_name):
         c = pycurl.Curl()
+        response_buffer = StringIO()
+        c.setopt(c.WRITEFUNCTION, response_buffer.write)
         c.setopt(c.POST, 1)
         url = "http://%s:%d/repo/%s/" % (self.hostname, self.port, reponame)
         c.setopt(c.URL, url)
@@ -78,8 +87,11 @@ class HttpClient(object):
         returncode = c.getinfo(pycurl.HTTP_CODE)
         c.close()
 
+        response_text = _render(response_buffer.getvalue())
+        response_buffer.close()
+
         if returncode != httplib.CREATED:
-            raise RepoException("Upload failed.")
+            raise RepoException("Upload failed.\nServer says: {0}".format(response_text))
 
     def deleteSingleRpm(self, reponame, rpm_file_name):
         response = self.doHttpDelete('/repo/' + reponame + '/' + rpm_file_name)
@@ -183,9 +195,8 @@ class HttpClient(object):
             exit()
 
     def assertResponse(self, response, expectedStatus):
+        text_response = _render(response.read())
         if response.status != expectedStatus:
             raise RepoException(
-                "ERROR: Got unexpected status code %(status)d .Expected %(expected)d Response: %(content)s" % {
-                    "status": response.status,
-                    "expected": expectedStatus,
-                    "content": response.read()})
+                "ERROR: Got unexpected status code {0}. Expected {1}.\nThe server said:\n{2}".format(\
+                response.status, expectedStatus, text_response))
