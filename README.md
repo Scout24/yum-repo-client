@@ -6,14 +6,27 @@ _yum-repo-client_ is a command line interface for interacting with the [yum-repo
 The aim is to provide a command line wrapper for every functionality the yum-repo-server provides so you don't have to fiddle with REST requests.
 This is especially good for automations that can run command line tools because you can modify the [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server) as you wish without breaking your automation (provided you include the modifications in the yum-repo-client).
 
-## Features
-The yum-repo-client currently supports
-* Remote repository creation and deletion
-* RPM upload and remote deletion
-* Virtual repository creation, linking, redirection and deletion
-* Optional authentication and [yum-repo-server](https://github.com/ImmobilienScout24/yum-repo-server) host parametrization
-* RPM propagation
-* Smart bash autocompletion
+## Usage
+After installation the toplevel command ```repoclient``` will be available.
+### Available commands
+ * create
+ * deleterpm
+ * deletestatic
+ * deletevirtual
+ * generatemetadata
+ * linktostatic
+ * linktovirtual
+ * propagate
+ * propagaterepo
+ * querystatic
+ * queryvirtual
+ * redirectto
+ * taglist
+ * tag
+ * untag
+ * uploadto
+
+Please consult ```repoclient -h``` for more information.
 
 ## Getting started
 ### Building the yum-repo-client
@@ -22,7 +35,7 @@ First of all it is recommended to run the tests:
 python setup.py test
 </code>
 
-These should always be successfull. 
+These should always be successful.
 #### Build RPM
 Optionally after that you can run:
 <code>
@@ -43,13 +56,10 @@ Without the rpm file you can install the yum-repo-client with:
 <code>
 python setup.py install
 </code>
-### Using the yum-repo-client
-Simply call 
-<code>repoclient</code> 
-to display the help text that includes call syntax and operation description
-### Setting the defaults
+
+
+### Static configuration
 To set the default host and port used by the yum-repo-client, you need to edit (or create) the file `/etc/yum-repo-client.yaml`.
 This file should contain the following entries :
 `DEFAULT_HOST : localhost`
 `DEFAULT_PORT : 8000`
-The configuration above is for usage with the django development server (not for production use!).

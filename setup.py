@@ -10,7 +10,7 @@ from setuptools import setup
 commands = {}
 
 '''
-    Need to do this, in order to use the TeamcityTestRunner without installing it first. 
+    Need to do this, in order to use the TeamcityTestRunner without installing it first.
     Add the runner only conditionally, because we don't have it while packaging the repo_client
     as a rpm.
 '''
@@ -57,7 +57,7 @@ setup(
         "Topic :: Software Development :: Build Tools",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
-    test_suite="yum_repo_client",
+    test_suite="python",
     cmdclass=commands,
     data_files=[('/etc/bash_completion.d', ['src/main/bash-completion/yum-repo-client.bash'])],
     entry_points={
