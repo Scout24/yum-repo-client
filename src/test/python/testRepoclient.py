@@ -17,3 +17,5 @@ class TestDefaultConfigLoader(unittest.TestCase):
 
         self.assertEqual(8123, extractor.port, 'default port should be 8123 not %i' % extractor.port)
 
+if __name__ == '__main__':
+    unittest.main()
