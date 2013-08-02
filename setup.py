@@ -57,7 +57,7 @@ setup(
         "Topic :: Software Development :: Build Tools",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
-    test_suite="python",
+    test_suite="yum_repo_client",
     cmdclass=commands,
     data_files=[('/etc/bash_completion.d', ['src/main/bash-completion/yum-repo-client.bash'])],
     entry_points={
