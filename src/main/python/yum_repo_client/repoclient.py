@@ -4,7 +4,10 @@ import pycurl
 import string
 import base64
 import urllib
-import html2text
+try:
+    from html2text import html2text
+except ImportError:
+    html2text = lambda html: html
 try:
     from StringIO import StringIO
 except ImportError:
@@ -19,7 +22,7 @@ class RepoException(Exception):
         return str(self.value)
 
 def _render(response):
-    return html2text.html2text(response)
+    return html2text(response)
 
 class HttpClient(object):
     USER_AGENT = 'repoclient/1.0'
