@@ -195,8 +195,7 @@ class HttpClient(object):
             exit()
 
     def assertResponse(self, response, expectedStatus):
-        text_response = _render(response.read())
         if response.status != expectedStatus:
             raise RepoException(
                 "ERROR: Got unexpected status code {0}. Expected {1}.\nThe server said:\n{2}".format(\
-                response.status, expectedStatus, text_response))
+                response.status, expectedStatus, _render(response.read())))
