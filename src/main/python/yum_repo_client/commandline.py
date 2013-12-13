@@ -16,7 +16,7 @@ class CommandLineClient(object):
     commands = [CreateStaticRepoCommand(), DeleteRpmCommand(), DeleteStaticRepoCommand(),
                 DeleteVirtualRepoCommand(), GenerateMetadataCommand(), LinkToStaticCommand(),
                 LinkToVirtualCommand(), PropagateRpmCommand(), PropagateRepoCommand(),
-                QueryStaticReposCommand(), QueryVirtualReposCommand(), RedirectToExternalCommand(),
+                QueryStaticReposCommand(), QueryVirtualReposCommand(), QueryRpmCommand(), RedirectToExternalCommand(),
                 GetTagListCommand(), AddTagCommand(), DeleteTagCommand(), UploadRpmCommand()]
 
     def __init__(self, arguments):
