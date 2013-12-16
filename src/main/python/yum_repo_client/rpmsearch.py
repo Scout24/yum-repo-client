@@ -10,23 +10,23 @@ class RpmSearch():
     return self._sort_rpms(found_rpms, sort_desc)
 
   def _sort_rpms(self, rpm_list, sort_desc):
-    rg = {}
+    grouped_rpms = {}
     
     for rpm_file in rpm_list:
-      if rg.has_key(rpm_file.name):
-        rg.get(rpm_file.name).append(rpm_file)
+      if grouped_rpms.has_key(rpm_file.name):
+        grouped_rpms.get(rpm_file.name).append(rpm_file)
       else:
-        rg[rpm_file.name] = [rpm_file]
+        grouped_rpms[rpm_file.name] = [rpm_file]
     
-    keys = rg.keys()
+    keys = grouped_rpms.keys()
     for key in keys:
-      rg.get(key).sort(cmp=self._compare_rpms_by_version, reverse=sort_desc)
+      grouped_rpms.get(key).sort(cmp=self._compare_rpms_by_version, reverse=sort_desc)
       
     keys.sort(reverse=sort_desc)
     
     sorted_list = []
     for key in keys:
-      sorted_list.extend(rg.get(key))
+      sorted_list.extend(grouped_rpms.get(key))
     
     #rpm_list.sort(cmp=self._compare_rpms_by_version, reverse=sort_desc)
     
