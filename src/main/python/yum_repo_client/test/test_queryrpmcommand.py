@@ -21,7 +21,7 @@ class TestQueryRpmCommand(unittest.TestCase):
     self.command.doRun(self._create_args('a-a', 'production', 'noarch'))
     
     self.assertEquals(
-      'a-a-a-12.2-15.noarch.rpm\na-a-b-12.2-15.noarch.rpm\nb-a-a-12.2-15.noarch.rpm\na-a-a-12.3-15.noarch.rpm\n',
+      'a-a-a-12.2-15.noarch.rpm\na-a-a-12.3-15.noarch.rpm\na-a-b-12.2-15.noarch.rpm\nb-a-a-12.2-15.noarch.rpm\n',
       self.output.getvalue())
   
   def test_sort_descending(self):
