@@ -153,31 +153,31 @@ class QueryVirtualReposCommand(BasicCommand):
         print response.read()
 
 class QueryRpmCommand(BasicCommand):
-  name= 'queryrpm'
-  help_text = '<rpm_name> <repository> <arch> [-sort <asc/desc>]'
-  rpm_search = RpmSearch()
-  
-  def __init__(self, print_stream=sys.stdout):
-    self.print_stream = print_stream
-  
-  def add_arguments(self, parser):
-    parser.add_argument('rpm_name', help='reqular expression to filter rpm names')
-    parser.add_argument('repository', help='the repository in which to search for the rpms')
-    parser.add_argument('arch', help='the architecture of the rpm to search')
-    parser.add_argument('-sort', help='the sort order')
+    name= 'queryrpm'
+    help_text = '<rpm_name> <repository> <arch> [-sort <asc/desc>]'
+    rpm_search = RpmSearch()
     
-  def doRun(self, args):
-    sort_desc = self._parse_sort_desc(args.sort)
-    response = self.httpClient.get_files(args.repository, args.arch)
-    files = json.load(response)['items']
-    found_rpms = self.rpm_search.search_rpms_with_name(args.rpm_name, files, sort_desc)
+    def __init__(self, print_stream=sys.stdout):
+        self.print_stream = print_stream
     
-    for found_rpm in found_rpms:
-      print >> self.print_stream, found_rpm.filename
-    
-  def _parse_sort_desc(self, sort):
-    #the default sort order is ascending. 
-    return sort == 'desc'
+    def add_arguments(self, parser):
+        parser.add_argument('rpm_name', help='reqular expression to filter rpm names')
+        parser.add_argument('repository', help='the repository in which to search for the rpms')
+        parser.add_argument('arch', help='the architecture of the rpm to search')
+        parser.add_argument('-sort', help='the sort order')
+        
+    def doRun(self, args):
+        sort_desc = self._parse_sort_desc(args.sort)
+        response = self.httpClient.get_files(args.repository, args.arch)
+        files = json.load(response)['items']
+        found_rpms = self.rpm_search.search_rpms_with_name(args.rpm_name, files, sort_desc)
+        
+        for found_rpm in found_rpms:
+            print >> self.print_stream, found_rpm.filename
+      
+    def _parse_sort_desc(self, sort):
+        #the default sort order is ascending. 
+        return sort == 'desc'
 
 class RedirectToExternalCommand(BasicCommand):
     name = 'redirectto'
