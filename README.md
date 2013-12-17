@@ -20,6 +20,7 @@ After installation the toplevel command ```repoclient``` will be available.
  * propagaterepo
  * querystatic
  * queryvirtual
+ * queryrpm
  * redirectto
  * taglist
  * tag
