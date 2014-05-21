@@ -90,8 +90,8 @@ class DefaultConfigLoader(object):
             f = open(config_filename)
             try:
                 config = yaml.load(f)
-                self.hostname = config['DEFAULT_HOST']
-                self.port = config['DEFAULT_PORT']
+                self.hostname = config.get('DEFAULT_HOST')
+                self.port = config.get('DEFAULT_PORT')
             finally:
                 f.close()
 
