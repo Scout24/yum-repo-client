@@ -1,0 +1,5 @@
+teamcity-messages
+django
+pycurl
+pyrpm
+argcomplete
