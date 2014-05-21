@@ -67,7 +67,7 @@ class CommandLineClient(object):
         group.add_argument('-u', '--username',
                            help='username to use basic authentication. You will be prompted for the password.').completer = UsernameCompleter()
         group.add_argument('-c', '--context', default=self.defaultConfig.context,
-                           help="HTTP context of the yum-repo-server, with leading slash.")
+                           help="HTTP context of the yum-repo-server, with leading slash. Default is root context, unless set by /etc/yum-repo-client.yaml")
         group.add_argument('-m', '--message',
                            help='adds a justification to your request. It will be visible in the audit.')
 
