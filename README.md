@@ -64,3 +64,4 @@ To set the default host and port used by the yum-repo-client, you need to edit (
 This file may contain any of the following entries :
 `DEFAULT_HOST : localhost`
 `DEFAULT_PORT : 8000`
+`DEFAULT_CONTEXT`: `/yum-repo-server`
