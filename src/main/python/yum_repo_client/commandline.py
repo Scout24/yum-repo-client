@@ -95,6 +95,8 @@ class DefaultConfigLoader(object):
                 self.hostname = config.get('DEFAULT_HOST')
                 self.port = config.get('DEFAULT_PORT')
                 self.context = config.get('DEFAULT_CONTEXT')
+            except Exception as e:
+                print "Error reading configuration from {0} : {1}".format(config_filename, e)
             finally:
                 f.close()
 
