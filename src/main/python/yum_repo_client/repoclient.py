@@ -31,10 +31,11 @@ class HttpClient(object):
     password = None
     message = None
 
-    def __init__(self, hostname, port, message=None):
+    def __init__(self, hostname, port, context=None, message=None):
         self.hostname = hostname
         self.port = port
         self.message = message
+        self.context = '' if not context or context == '/' else context
 
     def queryStatic(self, params):
         urlparams = urllib.urlencode(params)
@@ -158,7 +159,7 @@ class HttpClient(object):
         try:
             httpServ = httplib.HTTPConnection(self.hostname, self.port)
             httpServ.connect()
-            httpServ.request('POST', extPath, postdata, headers)
+            httpServ.request('POST', self.context + extPath, postdata, headers)
             response = httpServ.getresponse()
             return response
         except httplib.HTTPException:
@@ -174,7 +175,7 @@ class HttpClient(object):
 
         try:
             httpServ = httplib.HTTPConnection(self.hostname, self.port)
-            httpServ.request('DELETE', extPath, None, headers)
+            httpServ.request('DELETE', self.context + extPath, None, headers)
             response = httpServ.getresponse()
             return response
         except httplib.HTTPException:
@@ -190,7 +191,7 @@ class HttpClient(object):
 
         try:
             httpServ = httplib.HTTPConnection(self.hostname, self.port)
-            httpServ.request('GET', extPath, None, headers)
+            httpServ.request('GET', self.context + extPath, None, headers)
             response = httpServ.getresponse()
             return response
         except httplib.HTTPException:

@@ -4,7 +4,7 @@ from yum_repo_client.repoclient import HttpClient
 
 class BasicCommand(object):
     def run(self, args):
-        self.httpClient = HttpClient(hostname=args.hostname, port=args.port, message=args.message)
+        self.httpClient = HttpClient(hostname=args.hostname, port=args.port, context=args.context, message=args.message)
         if args.username is not None:
             self.httpClient.username = args.username
             self.httpClient.password = self._readPassword()

@@ -17,5 +17,11 @@ class TestDefaultConfigLoader(unittest.TestCase):
 
         self.assertEqual(8123, extractor.port, 'default port should be 8123 not %i' % extractor.port)
 
+    def test_default_context(self):
+        os.environ['YUM_REPO_CLIENT_CONFIG'] = 'src/test/resources/yum-repo-client.yaml'
+        extractor = DefaultConfigLoader()
+
+        self.assertEqual("/foo/bar", extractor.context)
+
 if __name__ == '__main__':
     unittest.main()

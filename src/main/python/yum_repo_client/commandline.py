@@ -66,6 +66,8 @@ class CommandLineClient(object):
                            help='port of the yum repo server. Default: 80 unless set by /etc/yum-repo-client.yaml')
         group.add_argument('-u', '--username',
                            help='username to use basic authentication. You will be prompted for the password.').completer = UsernameCompleter()
+        group.add_argument('-c', '--context', default=self.defaultConfig.context,
+                           help="HTTP context of the yum-repo-server, with leading slash.")
         group.add_argument('-m', '--message',
                            help='adds a justification to your request. It will be visible in the audit.')
 
@@ -92,11 +94,13 @@ class DefaultConfigLoader(object):
                 config = yaml.load(f)
                 self.hostname = config.get('DEFAULT_HOST')
                 self.port = config.get('DEFAULT_PORT')
+                self.context = config.get('DEFAULT_CONTEXT')
             finally:
                 f.close()
 
     hostname = None
     port = None
+    context = None
 
 
 def mainMethod():

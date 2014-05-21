@@ -1,2 +1,3 @@
 DEFAULT_HOST : test-domain.com
 DEFAULT_PORT : 8123
+DEFAULT_CONTEXT : /foo/bar
