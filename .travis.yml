@@ -6,6 +6,7 @@ python:
   - "pypy"
 
 before_script:
+  - sudo apt-get install python-rpm
   - pip install -r requirements.txt
 
 script:
