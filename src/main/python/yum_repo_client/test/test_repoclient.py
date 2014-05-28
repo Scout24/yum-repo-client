@@ -67,3 +67,13 @@ class HttpCallWithContextTests(TestCase):
         self.client.doHttpPost('/repo/mutatestuff')
 
         mock_connection.request.assert_called_with('POST', '/any/context/repo/mutatestuff', '', {'User-Agent': 'repoclient/1.0'})
+
+    @patch("yum_repo_client.repoclient.httplib")
+    def test_should_add_leading_slash_to_context_if_missing(self, http_lib):
+        mock_connection = Mock()
+        http_lib.HTTPConnection.return_value = mock_connection
+        self.client = HttpClient("any-host.invalid", 42, context="any/context")
+
+        self.client.doHttpPost('/repo/mutatestuff')
+
+        mock_connection.request.assert_called_with('POST', '/any/context/repo/mutatestuff', '', {'User-Agent': 'repoclient/1.0'})

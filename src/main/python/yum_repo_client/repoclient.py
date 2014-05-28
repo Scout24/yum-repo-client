@@ -36,6 +36,11 @@ class HttpClient(object):
         self.port = port
         self.message = message
         self.context = '' if not context or context == '/' else context
+        self._add_leading_context_slash_if_needed()
+
+    def _add_leading_context_slash_if_needed(self):
+        if self.context and not self.context.startswith('/'):
+            self.context = "/%s" % self.context
 
     def queryStatic(self, params):
         urlparams = urllib.urlencode(params)
