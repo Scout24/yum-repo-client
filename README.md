@@ -1,4 +1,4 @@
-yum-repo-client
+yum-repo-client [![Build Status](https://travis-ci.org/ImmobilienScout24/yum-repo-client.svg?branch=master)](https://travis-ci.org/ImmobilienScout24/yum-repo-client)
 ===============
 
 ## Aim
