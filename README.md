@@ -66,7 +66,7 @@ This file may contain any of the following entries :
 `DEFAULT_PORT : 8000`
 `DEFAULT_CONTEXT`: `/yum-repo-server`
 
-### Nicer web app container error messages
+### Nicer yum-repo-server error messages
 If [the html2text library](https://github.com/mriehl/html2text) is installed in the same environment as yum-repo-client (`pip install html2text` in its most simple form) then yum-repo-client will render yum-repo-server error responses in **markdown** (instead of the pile of inline CSS you usually get with tomcat for example).
 
 If `html2text` is not installed, you'll get the raw HTML/CSS (best effort).
