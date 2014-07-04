@@ -60,9 +60,23 @@ The resulting deb package will be in the `deb_dist` subfolder. Please keep in mi
 If you have built a rpm file in the step above, then you can install it as usual.
 
 Without the rpm file you can install the yum-repo-client with:
+
 <code>
 python setup.py install
 </code>
+
+Make sure you installed the build and runtime dependencies as described above. 
+
+#### Mac installation
+Installation works on Mac as described above, too. Only the rpmsearch command will not work, as it requires rpmbuild installed.
+
+If you do not have pip installed, execute
+
+<code>
+sudo easy_install pip
+</code> 
+
+After that you may need to get a fresh shell. 
 
 
 ### Static configuration
