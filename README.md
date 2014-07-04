@@ -31,7 +31,13 @@ Please consult ```repoclient -h``` for more information.
 
 ## Getting started
 ### Building the yum-repo-client
-First of all it is recommended to run the tests:
+Start by installing all required dependencies (runtime + build):
+
+```python
+pip install -r requirements.txt
+```
+
+Then it is recommended to run the tests:
 <code>
 python setup.py test
 </code>
