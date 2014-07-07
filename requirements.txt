@@ -3,3 +3,4 @@ pycurl
 pyrpm
 argcomplete
 mock
+unittest2

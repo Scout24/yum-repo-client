@@ -1,4 +1,4 @@
-from unittest import TestLoader
+from unittest2 import TestLoader
 from setuptools.command.test import test
 
 from teamcity.unittestpy import TeamcityTestRunner, TeamcityTestResult
