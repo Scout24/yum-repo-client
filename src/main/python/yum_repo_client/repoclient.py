@@ -84,7 +84,7 @@ class HttpClient(object):
         response_buffer = StringIO()
         c.setopt(c.WRITEFUNCTION, response_buffer.write)
         c.setopt(c.POST, 1)
-        url = "http://%s:%d/repo/%s/" % (self.hostname, self.port, reponame)
+        url = "http://%s:%d/%s/repo/%s/" % (self.hostname, self.port, self.context, reponame)
         c.setopt(c.URL, url)
         c.setopt(c.HTTPPOST, [("rpmFile", (c.FORM_FILE, rpm_file_name))])
         c.setopt(pycurl.HTTPHEADER, ['User-Agent: ' + self.USER_AGENT])
