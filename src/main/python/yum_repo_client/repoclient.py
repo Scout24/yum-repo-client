@@ -1,9 +1,13 @@
 import httplib
 from dummy_thread import exit
-import pycurl
 import string
 import base64
 import urllib
+import getpass
+
+import pycurl
+
+
 try:
     from html2text import html2text
 except ImportError:
@@ -157,6 +161,7 @@ class HttpClient(object):
         if not headers:
             headers = {}
         headers['User-Agent'] = self.USER_AGENT
+        headers['Username'] = self.get_user_name()
 
         if self.username is not None:
             auth = 'Basic ' + string.strip(base64.encodestring(self.username + ':' + self.password))
@@ -172,7 +177,7 @@ class HttpClient(object):
             exit()
 
     def doHttpDelete(self, extPath):
-        headers = {'User-Agent': self.USER_AGENT}
+        headers = {'User-Agent': self.USER_AGENT, 'Username': self.get_user_name()}
 
         if self.username is not None:
             auth = 'Basic ' + string.strip(base64.encodestring(self.username + ':' + self.password))
@@ -188,7 +193,7 @@ class HttpClient(object):
             exit()
 
     def doHttpGet(self, extPath):
-        headers = {'User-Agent': self.USER_AGENT}
+        headers = {'User-Agent': self.USER_AGENT, 'Username': self.get_user_name()}
 
         if self.username is not None:
             auth = 'Basic ' + string.strip(base64.encodestring(self.username + ':' + self.password))
@@ -208,3 +213,6 @@ class HttpClient(object):
             raise RepoException(
                 "ERROR: Got unexpected status code {0} ({1}). Expected {2}.\nThe server said:\n{3}".format(
                 response.status, response.reason, expectedStatus, _render(response.read())))
+
+    def get_user_name(self):
+        return self.username if self.username is not None else getpass.getuser()
