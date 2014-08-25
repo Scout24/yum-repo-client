@@ -91,7 +91,7 @@ class HttpClient(object):
         url = "http://%s:%d/%s/repo/%s/" % (self.hostname, self.port, self.context, reponame)
         c.setopt(c.URL, url)
         c.setopt(c.HTTPPOST, [("rpmFile", (c.FORM_FILE, rpm_file_name))])
-        c.setopt(pycurl.HTTPHEADER, ['User-Agent: ' + self.USER_AGENT])
+        c.setopt(pycurl.HTTPHEADER, ['User-Agent: ' + self.USER_AGENT, 'Username: ' + self.get_user_name()])
         if self.username is not None:
             c.setopt(pycurl.HTTPAUTH, pycurl.HTTPAUTH_BASIC)
             c.setopt(pycurl.USERPWD, '%s:%s' % (self.username, self.password))
