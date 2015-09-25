@@ -17,16 +17,16 @@ class ExtendedTeamcityResult(TeamcityTestResult):
         TeamcityTestResult.startTest(self, test)
 
     def printResults(self):
-        self.output.write('\nTests run: %i, Failures: %i, Errors %i \n\n' % (self.testsRun, len(self.failures), len(self.errors)))
+        self.messages.output.write('\nTests run: %i, Failures: %i, Errors %i \n\n' % (self.testsRun, len(self.failures), len(self.errors)))
         self._print_test_names_of_list_as(self.failures, 'Failures')
         self._print_test_names_of_list_as(self.errors, 'Errors')
 
     def _print_test_names_of_list_as(self, tests, label):
         if len(tests) > 0:
-            self.output.write('%s:\n' % label)
+            self.messages.output.write('%s:\n' % label)
             for failure in tests:
-                self.output.write('\t%s\n' % self.getTestName(failure[0]))
-            self.output.write('\n\n')
+                self.messages.output.write('\t%s\n' % self.getTestName(failure[0]))
+            self.messages.output.write('\n\n')
 
 
 class TeamcityTestRunnerCommand(test):
