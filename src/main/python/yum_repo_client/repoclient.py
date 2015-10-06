@@ -52,6 +52,13 @@ class HttpClient(object):
         self.assertResponse(response, httplib.OK)
         return response
 
+    def queryInfo(self, reponame):
+        reponame = urllib.quote(reponame)
+        response = self.doHttpGet('/repo/%s/info.json' % reponame)
+        print response
+        self.assertResponse(response, httplib.OK)
+        return response
+
     def queryVirtual(self, params):
         urlparams = urllib.urlencode(params)
         response = self.doHttpGet('/repo/virtual.txt?' + urlparams)
