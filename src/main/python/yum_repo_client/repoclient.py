@@ -55,7 +55,6 @@ class HttpClient(object):
     def queryInfo(self, reponame):
         reponame = urllib.quote(reponame)
         response = self.doHttpGet('/repo/%s/info.json' % reponame)
-        print response
         self.assertResponse(response, httplib.OK)
         return response
 
