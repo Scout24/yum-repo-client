@@ -25,7 +25,7 @@ class ExtendedTeamcityResult(TeamcityTestResult):
         if len(tests) > 0:
             self.messages.output.write('%s:\n' % label)
             for failure in tests:
-                self.messages.output.write('\t%s\n' % self.getTestName(failure[0]))
+                self.messages.output.write('\t%s\n' % self.get_test_id(failure[0]))
             self.messages.output.write('\n\n')
 
 
