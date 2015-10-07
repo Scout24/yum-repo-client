@@ -235,7 +235,7 @@ class UploadRpmCommand(BasicCommand):
     def add_arguments(self, parser):
         parser.add_argument('reponame', help='name of the static repository').completer = StaticRepoCompleter()
         parser.add_argument('path', nargs='+', help='local path to a rpm on disk')
-        parser.add_argument("--wait", default=120, dest="wait",
+        parser.add_argument("--wait", action='store_true', default=False, dest="wait",
                           help='wait until metadata was generated, i.e. packages are available for yum')
 
     def _get_repo_state(self, reponame):
@@ -244,10 +244,9 @@ class UploadRpmCommand(BasicCommand):
         return response['needsMetadataUpdate'], response['lastMetadataGeneration']
 
     def _wait_for_metadata_generation(self, reponame, wait_seconds):
-        stop_time = time.time() + float(wait_seconds)
         _, old_update_time = self._get_repo_state(reponame)
 
-        while time.time() < stop_time:
+        while True:
             needs_update, new_update_time = self._get_repo_state(reponame)
             if old_update_time != new_update_time:
                 # New metadata was generated.
@@ -257,8 +256,6 @@ class UploadRpmCommand(BasicCommand):
                 # reading the old_update_time.
                 return None
             time.sleep(1)
-        print >>sys.stderr, "Timeout while waiting for metadata to be rebuilt."
-        return 1
 
     def doRun(self, args):
         error = False
