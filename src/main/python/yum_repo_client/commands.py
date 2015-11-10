@@ -228,6 +228,57 @@ class DeleteTagCommand(BasicCommand):
         self.httpClient.untagRepo(args.reponame, args.tag)
 
 
+class EnsureMetadataCommand(BasicCommand):
+    name = 'ensure_metadata_latest'
+    help_text = ('Creates new metadata or waits for it to be created '
+                 'automatically, depending on repository type')
+
+    def add_arguments(self, parser):
+        parser.add_argument('reponame', help='name of the repository').completer = StaticRepoCompleter()
+
+    def _get_repo_state(self, reponame):
+        response = self.httpClient.queryInfo(reponame)
+        return json.loads(response.read())
+
+    def _wait_for_metadata_generation(self, reponame, wait_seconds):
+        start_time = time.time()
+        repo_state = self._get_repo_state(reponame)
+        previous_metadata_generation = repo_state['lastMetadataGeneration']
+        while True:
+            repo_state = self._get_repo_state(reponame)
+            if not repo_state['needsMetadataUpdate']:
+                return
+
+            current_metadata_generation = repo_state['lastMetadataGeneration']
+            if current_metadata_generation != previous_metadata_generation:
+                # Metadata was already updated after we started waiting. But
+                # while we slept, someone made changes to the repo, so
+                # needsMetadataUpdate is still True. However, the metadata now
+                # reflects all changes that were made at the time this function
+                # was called, so we are done.
+                return
+
+            waited_time = time.time() - start_time
+            if waited_time > wait_seconds:
+                return 1
+
+            time.sleep(1)
+
+    def doRun(self, args):
+        repo_state = self._get_repo_state(args.reponame)
+
+        repo_type = repo_state['type']
+        if repo_type == 'SCHEDULED':
+            print "Repository has scheduled metadata generation. Waiting for it to happen..."
+            return self._wait_for_metadata_generation(args.reponame, 480)
+        elif repo_type == 'STATIC':
+            print "Repository has static metadata generation, triggering it now..."
+            self.httpClient.generateMetadata(args.reponame)
+        else:
+            # TODO: Anything else, e.g. virtual repos?
+            pass
+
+
 class UploadRpmCommand(BasicCommand):
     name = 'uploadto'
     help_text = '<reponame> <rpm1> ... <rpmN> : Uploads rpms to a dedicated repository on the server'

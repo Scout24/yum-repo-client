@@ -17,7 +17,7 @@ class CommandLineClient(object):
                 DeleteVirtualRepoCommand(), GenerateMetadataCommand(), LinkToStaticCommand(),
                 LinkToVirtualCommand(), PropagateRpmCommand(), PropagateRepoCommand(),
                 QueryStaticReposCommand(), QueryVirtualReposCommand(), QueryRpmCommand(), RedirectToExternalCommand(),
-                GetTagListCommand(), AddTagCommand(), DeleteTagCommand(), UploadRpmCommand()]
+                GetTagListCommand(), AddTagCommand(), DeleteTagCommand(), UploadRpmCommand(), EnsureMetadataCommand()]
 
     def __init__(self, arguments):
         self.defaultConfig = DefaultConfigLoader()
