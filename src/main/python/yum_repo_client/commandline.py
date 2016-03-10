@@ -67,7 +67,7 @@ class CommandLineClient(object):
         group.add_argument('-u', '--username',
                            help='username to use basic authentication. Use -P option for password or you will be prompted for the password.').completer = UsernameCompleter()
         group.add_argument('-P', '--password',
-                           help='Password for basic authentication. Care: password will be show as clear text.')
+                           help='Password for basic authentication. Care: password will be show as clear text.', default=None)
         group.add_argument('-c', '--context', default=self.defaultConfig.context,
                            help="HTTP context of the yum-repo-server. Default is root context, unless set by /etc/yum-repo-client.yaml")
         group.add_argument('-m', '--message',
