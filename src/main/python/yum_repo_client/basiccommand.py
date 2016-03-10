@@ -7,7 +7,10 @@ class BasicCommand(object):
         self.httpClient = HttpClient(hostname=args.hostname, port=args.port, context=args.context, message=args.message)
         if args.username is not None:
             self.httpClient.username = args.username
-            self.httpClient.password = self._readPassword()
+            if args.password is None:
+                self.httpClient.password = self._readPassword()
+            else:
+                self.httpClient.password = args.password
         return self.doRun(args)
 
     def filterDefaults(self, args):
