@@ -26,7 +26,7 @@ class RepoException(Exception):
         return str(self.value)
 
 def _render(response):
-    return html2text(response)
+    return html2text(response.decode('utf-8')).encode('utf-8')
 
 class HttpClient(object):
     USER_AGENT = 'repoclient/1.0'
